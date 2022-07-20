@@ -1,8 +1,10 @@
+const db = require('../../data/db-config');
+
 function find() { // EXERCISE A
   /*
     1A- Study the SQL query below running it in SQLite Studio against `data/schemes.db3`.
     What happens if we change from a LEFT join to an INNER join?
-
+    A. The 7th entry is ommitted as it has no steps to be counted (no steps means no matching row in steps table)
       SELECT
           sc.*,
           count(st.step_id) as number_of_steps
@@ -15,6 +17,11 @@ function find() { // EXERCISE A
     2A- When you have a grasp on the query go ahead and build it in Knex.
     Return from this function the resulting dataset.
   */
+  return db('schemes')
+    .leftJoin('steps', 'schemes.scheme_id', 'steps.scheme_id')
+    .groupBy('schemes.scheme_id')
+    .select('schemes.*')
+    .count('steps.step_id as number_of_steps')
 }
 
 function findById(scheme_id) { // EXERCISE B
