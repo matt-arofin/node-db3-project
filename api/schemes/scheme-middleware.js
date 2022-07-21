@@ -12,7 +12,7 @@ async function checkSchemeId(req, res, next) {
   if(scheme){
     next()
   } else {
-    next({message: `scheme with scheme_id ${req.params.id} not found`, status: 404})
+    next({message: `scheme with scheme_id ${req.params.scheme_id} not found`, status: 404})
   }
 }
 
